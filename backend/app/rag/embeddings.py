@@ -1,9 +1,6 @@
-from langchain_openai import OpenAIEmbeddings
-from app.core.config import settings
+from langchain_community.embeddings import DeterministicFakeEmbedding
 
 def get_embeddings():
-    return OpenAIEmbeddings(
-        model="text-embedding-3-small",
-        api_key=settings.OPENROUTER_API_KEY,
-        base_url=settings.OPENROUTER_BASE_URL,
-    )
+    # Lightweight fake embeddings — RAG disabled in production to save memory
+    # Replace with a real embedding service when needed
+    return DeterministicFakeEmbedding(size=384)
