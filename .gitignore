@@ -1,0 +1,71 @@
+# ========================
+# Python / Backend
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+*.egg
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+.env/
+
+# Environment variables
+backend/.env
+frontend/.env.local
+*.env
+.env.local
+.env.production
+.env.*.local
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# ChromaDB vector store
+backend/chroma_db/
+
+# Logs
+*.log
+logs/
+
+# ========================
+# Node / Frontend
+# ========================
+node_modules/
+frontend/node_modules/
+
+# Next.js build output
+.next/
+frontend/.next/
+out/
+
+# TypeScript build info
+*.tsbuildinfo
+frontend/tsconfig.tsbuildinfo
+
+# ========================
+# IDE / OS
+# ========================
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# ========================
+# Misc
+# ========================
+*.pem
+*.key
+*.cert
