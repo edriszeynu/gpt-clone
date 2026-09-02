@@ -6,7 +6,7 @@ import Sidebar from "@/components/Sidebar";
 import ChatMessage from "@/components/ChatMessage";
 import ChatInput from "@/components/ChatInput";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
+const BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api").replace(/\/$/, "");
 
 const MODELS = [
   { id: "openai/gpt-4o-mini", label: "GPT-4o Mini" },

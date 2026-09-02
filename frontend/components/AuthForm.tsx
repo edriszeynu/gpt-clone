@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { login, register } from "@/lib/api";
 import { useChatStore } from "@/lib/store";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api";
+const BASE_URL = (process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000/api").replace(/\/$/, "");
 
 export default function AuthForm({ mode }: { mode: "login" | "register" }) {
   const router = useRouter();
