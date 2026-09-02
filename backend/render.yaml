@@ -1,0 +1,67 @@
+services:
+  # FastAPI Backend
+  - type: web
+    name: edrisgpt-backend
+    runtime: python
+    rootDir: .
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: OPENROUTER_BASE_URL
+        value: https://openrouter.ai/api/v1
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 10080
+      - key: PRIMARY_MODEL
+        value: openai/gpt-4o-mini
+      - key: FALLBACK_MODEL
+        value: openai/gpt-3.5-turbo
+      - key: VECTOR_STORE_PATH
+        value: ./chroma_db
+      - key: REDIS_URL
+        fromService:
+          name: edrisgpt-redis
+          type: redis
+          property: connectionString
+      - key: FRONTEND_URL
+        sync: false
+      - key: BACKEND_URL
+        sync: false
+      - key: GITHUB_CLIENT_ID
+        sync: false
+      - key: GITHUB_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: OPENWEATHER_API_KEY
+        sync: false
+    disk:
+      name: data
+      mountPath: /opt/render/project/src
+      sizeGB: 1
+
+  # Next.js Frontend
+  - type: web
+    name: edrisgpt-frontend
+    runtime: node
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: NODE_ENV
+        value: production
+
+  # Redis
+  - type: redis
+    name: edrisgpt-redis
+    plan: free
+    maxmemoryPolicy: allkeys-lru
